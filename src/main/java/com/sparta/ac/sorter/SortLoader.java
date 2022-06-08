@@ -9,9 +9,12 @@ import com.sparta.ac.mergearray.MergeArray;
 
 public class SortLoader {
 
-    public static void userChoice() {
+    public static void runSortLoader(){
         int userInput = DisplayInput.getUserSortChoice();
-        SortFactory.userChoice(userInput);
+        while (userInput != 'e') {
+            SortFactory.userChoice(userInput);
+            userInput = DisplayInput.getUserSortChoice();
+        }
     }
 
     public static int[] getArrayFromUser(){
@@ -22,13 +25,19 @@ public class SortLoader {
 
     public static void bubbleSortLoader(){
         int[] arrayToSort = SortLoader.getArrayFromUser();
+        DisplayOutput.displayUnsortedArray(arrayToSort);
+        DisplayOutput.displaySortMethod("Bubble Sort");
         int[] sortedArray = BubbleSort.getBubbleSortOfArray(arrayToSort);
         DisplayOutput.displayResults(sortedArray);
     }
 
     public static void mergeArrayLoader(){
+        DisplayOutput.mergeExplaination();
         int[] arrayOneToSort = getArrayFromUser();
         int[] arrayTwoToSort = getArrayFromUser();
+        DisplayOutput.displayUnsortedArray(arrayOneToSort);
+        DisplayOutput.displayUnsortedArray(arrayTwoToSort);
+        DisplayOutput.displaySortMethod("Merge Sort");
         MergeArray mergedArray = new MergeArray();
         mergedArray.setArrayOne(arrayOneToSort);
         mergedArray.setArrayTwo(arrayTwoToSort);
@@ -39,6 +48,7 @@ public class SortLoader {
     public static void binarySortLoader(){
         int rootNode = DisplayInput.getRootNode();
         int[] arrayToSort = getArrayFromUser();
+        DisplayOutput.displayUnsortedArray(arrayToSort);
         BinaryTreeManager newBinaryTree = new BinaryTreeManager(rootNode);
         newBinaryTree.addElements(arrayToSort);
         int[] sortedArray = newBinaryTree.getSortedTreeAsc();

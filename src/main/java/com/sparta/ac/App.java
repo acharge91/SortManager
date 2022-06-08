@@ -14,6 +14,6 @@ public class App
 {
     private static Logger logger = Logger.getLogger("my logger");
     public static void main( String[] args ){
-        SortLoader.userChoice();
+        SortLoader.runSortLoader();
     }
 }

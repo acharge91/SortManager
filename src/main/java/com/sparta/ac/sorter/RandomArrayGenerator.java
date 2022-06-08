@@ -16,7 +16,6 @@ public class RandomArrayGenerator {
         Random rand = new Random();
         int upperbound = 100;
         int randomInt = rand.nextInt(upperbound);
-        System.out.println(randomInt);
         return randomInt;
     }
 }
