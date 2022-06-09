@@ -8,17 +8,19 @@ public abstract class DisplayInput {
         Scanner userInput = new Scanner(System.in);
         System.out.println("""
                 Select which sorter you wish to use:
-                1 - Bubble Sort
-                2 - Insertion Sort
-                3 - Binary Sort
-                9 - To exit
+                
+                1 - Bubble Sort ---- (Sorts arrays using iterations of an array until all elements are in order)
+                2 - Insertion Sort - (Uses recursion to swap elements until all elements are in order)
+                3 - Binary Sort ---- (Sorts elements into a binary tree and traverses the tree to order them)
+                9 - To exit -------- (We will be sad to see you go)
+                
                 Enter choice:\s""");
         return Integer.parseInt(userInput.nextLine());
     }
 
     public static int getUserArraySize() {
         Scanner userInput = new Scanner(System.in);
-        System.out.println("Enter the size of array you wish to generate, up to 100: ");
+        System.out.println("Now enter the size of array you wish to generate, up to 100: ");
         return Integer.parseInt(userInput.nextLine());
     }
 
