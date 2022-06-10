@@ -25,7 +25,7 @@ This algorithm uses recursion to compare the values of adjacent elements and swa
 
 - Binary Tree Sort
 
-This algorithm uses a binary tree to sort elements. Upon sorting the tree is recursively traversed which returns the elements in chronological order.
+This algorithm uses a binary tree to sort elements. Upon sorting the tree it is recursively traversed returning the elements in chronological order.
 
 ---
 
