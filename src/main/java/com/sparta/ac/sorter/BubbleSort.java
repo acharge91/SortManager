@@ -1,10 +1,18 @@
 package com.sparta.ac.sorter;
 
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class BubbleSort implements Sorter {
 
+    private static Logger logger = Logger.getLogger("Bubble sort logger");
     private static long timer;
 
-    public String getName(){ return "Bubble sort"; }
+    public String getName(){
+        logger.log(Level.INFO, "Returning string sorter name: Bubble sort.");
+        return "Bubble sort";
+    }
 
     public static int[] getBubbleSortOfArray(int[] numArray) {
         long startTime = System.nanoTime();
@@ -17,6 +25,7 @@ public class BubbleSort implements Sorter {
         }
         long endTime = System.nanoTime();
         timer = (endTime - startTime);
+        logger.log(Level.INFO, "Return timer field: " + timer);
         return numArray;
     }
 
@@ -25,6 +34,7 @@ public class BubbleSort implements Sorter {
     }
     @Override
     public int[] startSort(int[] arrayToSort) {
+        logger.log(Level.INFO, "Received array to sort: " + Arrays.toString(arrayToSort) + ". Call getBubbleSortOfArray with array.");
         return getBubbleSortOfArray(arrayToSort);
     }
 }

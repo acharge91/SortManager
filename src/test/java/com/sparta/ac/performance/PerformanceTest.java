@@ -1,5 +1,6 @@
 package com.sparta.ac.performance;
 
+import com.sparta.ac.exceptions.InvalidSelectionException;
 import com.sparta.ac.sorter.BubbleSort;
 import com.sparta.ac.sorter.InsertionSort;
 import com.sparta.ac.sorter.binarytree.BinaryTree;
@@ -12,8 +13,12 @@ import java.util.Arrays;
 public class PerformanceTest {
 
    private static int[] randomArrayToTest(int size){
-        return RandomArrayGenerator.arrayGenerator(size);
-    }
+       try {
+           return RandomArrayGenerator.arrayGenerator(size);
+       } catch (InvalidSelectionException e) {
+           throw new RuntimeException(e);
+       }
+   }
 
     @Test
     @DisplayName("Test bubble sort with array length 50")
@@ -62,7 +67,7 @@ public class PerformanceTest {
                 "----------------------------------------------\n" +
                 "Array to test:\n" + Arrays.toString(testArray) +
                 "\nSorting....");
-        testTree.setElementsArray(testArray);
+        testTree.addElements(testArray);
         int [] sortedArray = testTree.getSortedTreeAsc();
         long endTime = System.nanoTime();
         long time = (endTime - startTime);
@@ -118,7 +123,7 @@ public class PerformanceTest {
                 "-----------------------------------------------\n" +
                 "Array to test:\n" + Arrays.toString(testArray) +
                 "\nSorting....");
-        testTree.setElementsArray(testArray);
+        testTree.addElements(testArray);
         int [] sortedArray = testTree.getSortedTreeAsc();
         long endTime = System.nanoTime();
         long time = (endTime - startTime);
@@ -174,7 +179,7 @@ public class PerformanceTest {
                 "-----------------------------------------------\n" +
                 "Array to test:\n" + Arrays.toString(testArray) +
                 "\nSorting....");
-        testTree.setElementsArray(testArray);
+        testTree.addElements(testArray);
         int [] sortedArray = testTree.getSortedTreeAsc();
         long endTime = System.nanoTime();
         long time = (endTime - startTime);
@@ -230,7 +235,7 @@ public class PerformanceTest {
                 "-----------------------------------------------\n" +
                 "Array to test:\n" + Arrays.toString(testArray) +
                 "\nSorting....");
-        testTree.setElementsArray(testArray);
+        testTree.addElements(testArray);
         int [] sortedArray = testTree.getSortedTreeAsc();
         long endTime = System.nanoTime();
         long time = (endTime - startTime);
@@ -286,7 +291,7 @@ public class PerformanceTest {
                 "------------------------------------------------\n" +
                 "Array to test:\n" + Arrays.toString(testArray) +
                 "\nSorting....");
-        testTree.setElementsArray(testArray);
+        testTree.addElements(testArray);
         int [] sortedArray = testTree.getSortedTreeAsc();
         long endTime = System.nanoTime();
         long time = (endTime - startTime);

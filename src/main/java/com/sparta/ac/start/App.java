@@ -1,4 +1,4 @@
-package com.sparta.ac;
+package com.sparta.ac.start;
 
 import com.sparta.ac.logging.LogConfig;
 import com.sparta.ac.start.SortLoader;
@@ -9,6 +9,7 @@ public class App
 {
     private static Logger logger = Logger.getLogger("my logger");
     public static void main( String[] args ){
+
         LogConfig.setLogConfig(logger);
         SortLoader.runSortLoader();
     }

@@ -7,7 +7,7 @@ import java.util.logging.LogRecord;
 public class CustomFilter implements Filter {
     @Override
     public boolean isLoggable(LogRecord record) {
-        if (record.getMessage().equals("Warning")){
+        if (record.getMessage().equals("WARNING")){
             return true;
         } else {
             return false;

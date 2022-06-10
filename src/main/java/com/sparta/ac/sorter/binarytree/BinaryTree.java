@@ -8,7 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BinaryTree implements BinaryTreeImplementable, Sorter {
-    private static Logger logger = Logger.getLogger("my logger");
+
+    private static final Logger logger = Logger.getLogger("Binary sort logger");
     private final Node rootNode;
     private static int count;
 
@@ -19,21 +20,12 @@ public class BinaryTree implements BinaryTreeImplementable, Sorter {
 
     public BinaryTree(final int element) {
         rootNode = new Node(element);
-        count = 0;
-        nodeCount = 1;
+        nodeCount = 0;
     }
 
-    public String getName(){return "Binary tree sort";}
-
-
-    public void setElementsArray(int[] elements) {
-        elementsArray = new int[elements.length + 1];
-        elementsArray[count++] = rootNode.getValue();
-        for (int element : elements) {elementsArray[count++] = element;}
-        setNodeCount(elements);
-    }
-
-    public void setNodeCount(int[] array) {nodeCount += array.length;}
+    public String getName(){
+        logger.log(Level.INFO, "Returning string sorter name: Binary tree sort.");
+        return "Binary tree sort";}
 
     @Override
     public int getRootElement() {
@@ -43,41 +35,41 @@ public class BinaryTree implements BinaryTreeImplementable, Sorter {
 
     @Override
     public int getNumberOfElements() {
-        logger.log(Level.INFO, "Returning count of elements " + nodeCount);
+        nodeCount = countTreeElements(rootNode);
+        logger.log(Level.INFO, "Call countTreeElements and assigning to nodeCount. Returning nodeCount " + nodeCount);
         return nodeCount;
     }
 
     @Override
     public void addElement(int element) {
-        logger.log(Level.INFO, element + " added to tree");
+        logger.log(Level.INFO, "Calling addNodeToTree method with " + element);
         addNodeToTree(rootNode, element);
     }
 
     @Override
     public void addElements(int[] elements) {
-        setElementsArray(elements);
         logger.log(Level.INFO, Arrays.toString(elements) + " array received");
         for (int element : elements) {
-            logger.log(Level.INFO, element + " iteration of array elements");
+            logger.log(Level.FINE, element + " iteration of array elements");
             addElement(element);
         }
+        getNumberOfElements();
     }
 
     @Override
     public boolean findElement(final int element){
-        logger.log(Level.INFO, "returns boolean, checking if " + element + " is in the tree");
+        logger.log(Level.INFO, "Checking if " + element + " is in the tree");
         Node node = findNodeInTree(element);
         return node != null;
     }
 
-    //    Add exception for invalid selection.
     @Override
     public int getLeftChild(int element) throws ChildNotFoundException {
         Node node = findNodeInTree(element);
         logger.log(Level.INFO, "checking if " + element + " has a left child");
         if (node.getLeftChild() != null) {
             Node leftChild = node.getLeftChild();
-            logger.log(Level.INFO, leftChild.getValue() + " returned as " + node.getValue() + "'s left child");
+            logger.log(Level.FINE, leftChild.getValue() + " returned as " + node.getValue() + "'s left child");
             return leftChild.getValue();
         } else {
             throw new ChildNotFoundException("'" + node.getValue() + "'" + " node does not have a left child");
@@ -85,14 +77,13 @@ public class BinaryTree implements BinaryTreeImplementable, Sorter {
     }
 
 
-//    Add exception for invalid selection.
     @Override
     public int getRightChild(int element) throws ChildNotFoundException{
         Node node = findNodeInTree(element);
         logger.log(Level.INFO, "checking if " + element + " has a right child");
         if (node.getRightChild() != null) {
             Node rightChild = node.getRightChild();
-            logger.log(Level.INFO, rightChild.getValue() + " returned as " + node.getValue() + "'s right child");
+            logger.log(Level.FINE, rightChild.getValue() + " returned as " + node.getValue() + "'s right child");
             return rightChild.getValue();
         } else {
             throw new ChildNotFoundException("'" + node.getValue() + "'" + " This node does not have a right child");
@@ -102,26 +93,68 @@ public class BinaryTree implements BinaryTreeImplementable, Sorter {
 
     @Override
     public int[] getSortedTreeAsc() {
-        logger.log(Level.INFO, "receives " + Arrays.toString(elementsArray) + " to sort in ascending order");
+        count = 0;
+        logger.log(Level.INFO, "Reset count field to 0. Count field: " + count);
+        elementsArray = new int[nodeCount];
+        logger.log(Level.INFO, "Instantiating elementsArray field with nodeCount (" + nodeCount + ") size of array. elementsArray: " + Arrays.toString(elementsArray));
         long startTime = System.nanoTime();
-        Arrays.sort(elementsArray);
+        traverseLeftSide(rootNode);
         long endTime = System.nanoTime();
         timer = (endTime - startTime);
-        logger.log(Level.INFO, "output: " + Arrays.toString(elementsArray));
+        logger.log(Level.INFO, "Start timer before traverseLeftSide method call. Start time: " + startTime + ". Call method. Stop time: " + endTime + ". produce total time taken: " + timer + " and assign value to timer field.");
+        logger.log(Level.INFO, "Traverse left of binary tree and add each element to elementsArray to get sorted array ascending. Output: " + Arrays.toString(elementsArray));
         return elementsArray;
     }
 
+    private static void traverseLeftSide(Node node){
+        if(node == null) {
+            return;
+        }
+        if (!node.isLeftChildEmpty()) {
+            traverseLeftSide(node.getLeftChild());
+        }
+        addElementToArray(node.getValue());
+        if (!node.isRightChildEmpty()) {
+            traverseLeftSide(node.getRightChild());
+        }
+    }
+
+    private static void addElementToArray(int nodeValue) {
+        elementsArray[count++] = nodeValue;
+    }
+
     public long getTimer() {
+        logger.log(Level.INFO, "Return timer field: " + timer);
         return timer;
     }
 
     @Override
     public int[] getSortedTreeDesc() {
-        logger.log(Level.INFO, "receives " + Arrays.toString(elementsArray) + " to sort in descending order.");
-        Arrays.sort(elementsArray);
-        int [] reversedArray = getReverseArray(elementsArray);
-        logger.log(Level.INFO, "output: " + Arrays.toString(elementsArray));
-        return reversedArray;
+        count = 0;
+        logger.log(Level.INFO, "Reset count field to 0. Count field: " + count);
+        elementsArray = new int[nodeCount];
+        logger.log(Level.INFO, "Instantiating elementsArray field with nodeCount (" + nodeCount + ") size of array. elementsArray: " + Arrays.toString(elementsArray));
+        long startTime = System.nanoTime();
+        traverseRightSide(rootNode);
+        long endTime = System.nanoTime();
+        timer = (endTime - startTime);
+        logger.log(Level.INFO, "Start timer before traverseRightSide method call. Start time: " + startTime + ". Call method. Stop time: " + endTime + ". produce total time taken: " + timer + " and assign value to timer field.");
+        logger.log(Level.INFO, "Traverse right of binary tree and add each element to elementsArray to get sorted array descending. Output: " + Arrays.toString(elementsArray));
+
+        return elementsArray;
+    }
+
+    private static void traverseRightSide(Node node) {
+        if(node == null) {
+            return;
+        }
+        if (!node.isRightChildEmpty()) {
+            traverseLeftSide(node.getRightChild());
+        }
+        addElementToArray(node.getValue());
+        if (!node.isLeftChildEmpty()) {
+            traverseLeftSide(node.getLeftChild());
+        }
     }
 
     private void addNodeToTree(Node node, int element) {
@@ -150,6 +183,7 @@ public class BinaryTree implements BinaryTreeImplementable, Sorter {
                 logger.log(Level.FINER, "current node has a right child. addNodeToTree recursively called with current node's right child: " + node.getRightChild().getValue() + " as argument. ");
             }
         }
+
     }
 
     private Node findNodeInTree(int element) {
@@ -173,21 +207,17 @@ public class BinaryTree implements BinaryTreeImplementable, Sorter {
         return null;
     }
 
-    private int[] getReverseArray(int[] numArray) {
-        for (int number : numArray) {
-            for (int i = 0; i < numArray.length-1; i++) {
-                if (numArray[i] < numArray[i+1]) {
-                    numArray[i] = (numArray[i] + numArray[i+1]) - (numArray[i+1] = numArray[i]);
-                }
-            }
-        }
-        return numArray;
+    private static int countTreeElements(Node node) {
+        if(node == null)
+            return 0;
+        return 1 + countTreeElements(node.getLeftChild()) + countTreeElements(node.getRightChild());
     }
 
     @Override
     public int[] startSort(int[] arrayToSort) {
+        logger.log(Level.INFO, "Received array to sort: " + Arrays.toString(arrayToSort));
         int[] elementsArray = Arrays.copyOfRange(arrayToSort, 1, arrayToSort.length);
-
+        logger.log(Level.INFO, "Created new array minus the first element to account for root node " + Arrays.toString(elementsArray) + ".  Call addElements method with array.");
         addElements(elementsArray);
         return getSortedTreeAsc();
     }

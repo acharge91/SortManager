@@ -20,7 +20,7 @@ public abstract class DisplayInput {
 
     public static int getUserArraySize() {
         Scanner userInput = new Scanner(System.in);
-        System.out.println("Now enter the size of array you wish to generate, up to 100: ");
+        System.out.println("Now enter the size of array you wish to generate. Don't be shy: ");
         return Integer.parseInt(userInput.nextLine());
     }
 

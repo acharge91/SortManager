@@ -11,11 +11,11 @@ public class LogConfig {
         try {
             Handler fileHandler = new FileHandler("src/main/java/com/sparta/ac/logging/myLog.log");
             logger.addHandler(fileHandler);
-            logger.setFilter(new CustomFilter());
+//            logger.setFilter(new CustomFilter());
             fileHandler.setFormatter(new CustomFormatter());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        logger.setLevel(Level.INFO);
+        logger.setLevel(Level.OFF);
     }
 }
