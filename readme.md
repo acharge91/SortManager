@@ -1,4 +1,4 @@
-# Ashton's Mega Sorter Manager 3000
+# Ashton's Mega Sort Manager 3000
 *For all your household sorting needs*
 
                                                       █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
