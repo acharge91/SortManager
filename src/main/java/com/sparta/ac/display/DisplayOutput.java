@@ -24,17 +24,41 @@ public abstract class DisplayOutput {
                 "\nDon't spend it all at once.");
     }
 
-    public static void displaySortMethod(String method){
-        System.out.println("\nThe sort method you used is: " + method  +
-                "   Great choice!\n" +
-                "\n" +
-                "Sorting... Gimme a sec...\n");
+    public static void displaySortMethod(String method) {
+        System.out.println("\nThe sort method you are using is: " + method  +
+                "   (Great choice!)\n");
     }
+
+    public static void displayTwoSortingMethods(String methodOne, String methodTwo) {
+        System.out.println("\nOk then " + methodOne  + " Vs. " + methodTwo +
+                "\n" +
+                "Let the battle commence!\n");
+    }
+
     public static void displayResults(int[] result) {
-        System.out.println("Your beautiful, shiny, amazingly brilliant, sorted array: \n" +
+        System.out.println("Sorting... Gimme a sec...\n" +
+                "Your beautiful, shiny, amazingly brilliant, sorted array: \n" +
                 Arrays.toString(result) + "\n" +
                 "siiiiiiiiick\n" +
                 "");
+    }
+
+    public static void displayTwoResults(String firstSorter, int[] resultOne, long timeOne, String secondSorter, int[] resultTwo, long timeTwo) {
+        System.out.println("Sorting... Gimme a sec...\n" +
+                "\n"+
+                "Right, the results are in.\n" +
+                firstSorter + ":" + Arrays.toString(resultOne) +
+                "\nAnd it did it in " + timeOne + " nanoseconds\n" +
+                "\n" +
+                secondSorter + ":" + Arrays.toString(resultTwo) +
+                "\nAnd that did it in " + timeTwo + " nanoseconds\n");
+
+    }
+
+    public static void displayWinner(String winningSorter, long wonByTime) {
+        System.out.println("We have a winner!!!!\n" +
+                winningSorter + " takes it by a whopping " + wonByTime + " nanoseconds\n" +
+                "WOOOHOOOOOO");
     }
 
     public static void displayTimer(long time) {

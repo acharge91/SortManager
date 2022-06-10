@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public abstract class SortLoader {
 
-    private static Logger logger = Logger.getLogger("SortFactory logger");
+    private static final Logger logger = Logger.getLogger("SortFactory logger");
     public static void runSortLoader(){
         DisplayOutput.welcomeMessage();
         logger.log(Level.INFO, "Display welcome message");
@@ -21,7 +21,11 @@ public abstract class SortLoader {
 
         while (userInput != 9) {
             int elementUpperLimit = 500;
-            int[] arrayToSort = getArrayToSort(userInput, elementUpperLimit);
+            int[] arrayToSort = getArrayToSort(elementUpperLimit);
+            if (arrayToSort.length < 1) {
+                userInput = askForFurtherInput();
+                continue;
+            }
 
             Sorter chosenSorter = getChosenSorter(userInput, arrayToSort);
             if (chosenSorter == null) {
@@ -31,10 +35,31 @@ public abstract class SortLoader {
 
             displayArrayAndSorter(arrayToSort, chosenSorter);
 
+            int anotherSorter = DisplayInput.getSortAnotherChoice();
             int [] sortedArray = chosenSorter.startSort(arrayToSort);
-            logger.log(Level.INFO, "Call chosenSorter.startSort() with arrayToSort and assign to sortedArray " + Arrays.toString(sortedArray));
+            long chosenSorterTime = chosenSorter.getTimer();
+            if (anotherSorter == 1 ) {
+                userInput = DisplayInput.getComparisonSorter(chosenSorter.getName());
+                Sorter secondChosenSorter = getChosenSorter(userInput, arrayToSort);
+                DisplayOutput.displayTwoSortingMethods(chosenSorter.getName(), secondChosenSorter.getName());
 
-            displayResults(chosenSorter, sortedArray);
+                int[] secondSortedArray = secondChosenSorter.startSort(arrayToSort);
+
+                long secondSorterTimer = secondChosenSorter.getTimer();
+
+                displayTwoResults(chosenSorter, sortedArray, chosenSorterTime, secondChosenSorter, secondSortedArray, secondSorterTimer);
+                if (chosenSorterTime < secondSorterTimer){
+                    DisplayOutput.displayWinner(chosenSorter.getName(), secondSorterTimer - chosenSorterTime);
+                } else {
+                    DisplayOutput.displayWinner(secondChosenSorter.getName(), chosenSorterTime - secondSorterTimer);
+                }
+
+            } else {
+
+                logger.log(Level.INFO, "Call chosenSorter.startSort() with arrayToSort and assign to sortedArray " + Arrays.toString(sortedArray));
+
+                displayResults(chosenSorterTime, sortedArray);
+            }
 
             userInput = askForFurtherInput();
         }
@@ -52,13 +77,17 @@ public abstract class SortLoader {
         return userInput;
     }
 
-    private static void displayResults(Sorter chosenSorter, int[] sortedArray) {
+    private static void displayResults(long chosenSorterTime, int[] sortedArray) {
         DisplayOutput.displayResults(sortedArray);
         logger.log(Level.INFO, "Display sortedArray");
 
 
-        DisplayOutput.displayTimer(chosenSorter.getTimer());
-        logger.log(Level.INFO, "Display chosenSorter.getTimer() " + chosenSorter.getTimer());
+        DisplayOutput.displayTimer(chosenSorterTime);
+        logger.log(Level.INFO, "Display chosenSorterTime " + chosenSorterTime);
+    }
+
+    private static void displayTwoResults(Sorter chosenSorter, int[] sortedArray, long chosenSorterTime, Sorter secondChosenSorter, int[] secondSortedArray, long secondSorterTime) {
+        DisplayOutput.displayTwoResults(chosenSorter.getName(), sortedArray, chosenSorterTime, secondChosenSorter.getName(), secondSortedArray, secondSorterTime);
     }
 
     private static void displayArrayAndSorter(int[] arrayToSort, Sorter chosenSorter) {
@@ -80,17 +109,24 @@ public abstract class SortLoader {
         return chosenSorter;
     }
 
-    private static int[] getArrayToSort(int userInput, int elementUpperLimit) {
+    private static int[] getArrayToSort(int elementUpperLimit) {
         RandomArrayGenerator.setUpperLimit(elementUpperLimit);
         logger.log(Level.INFO, "RandomArrayGenerator.setUpperLimit to: " + elementUpperLimit);
 
         int arraySize = DisplayInput.getUserArraySize();
         logger.log(Level.INFO, "get user input" + arraySize + " and assign to arraySize variable.");
 
-        int[] arrayToSort = RandomArrayGenerator.arrayGenerator(arraySize);
 
-        logger.log(Level.INFO, "Call RandomArrayGenerator.arrayGenerator with " + userInput + " and assign to arrayToSort variable.");
+        int[] arrayToSort = new int[0];
+        try {
+            arrayToSort = RandomArrayGenerator.arrayGenerator(arraySize);
+            logger.log(Level.INFO, "Call RandomArrayGenerator.arrayGenerator with " + arraySize + " and assign to arrayToSort variable.");
+        } catch (InvalidSelectionException e) {
+            System.out.println(e.getMessage());
+        }
+
+
         return arrayToSort;
-    }
 
+    }
 }

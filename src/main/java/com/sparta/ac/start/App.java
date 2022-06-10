@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class App 
 {
-    private static Logger logger = Logger.getLogger("my logger");
+    private static final Logger logger = Logger.getLogger("my logger");
     public static void main( String[] args ){
 
         LogConfig.setLogConfig(logger);

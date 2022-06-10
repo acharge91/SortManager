@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class PerformanceTest {
 
    private static int[] randomArrayToTest(int size){
+       RandomArrayGenerator.setUpperLimit(100);
        try {
            return RandomArrayGenerator.arrayGenerator(size);
        } catch (InvalidSelectionException e) {

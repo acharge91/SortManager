@@ -76,7 +76,6 @@ public class BinaryTree implements BinaryTreeImplementable, Sorter {
         }
     }
 
-
     @Override
     public int getRightChild(int element) throws ChildNotFoundException{
         Node node = findNodeInTree(element);

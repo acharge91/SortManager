@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class SortFactory {
-    private static Logger logger = Logger.getLogger("SortFactory logger");
+    private static final Logger logger = Logger.getLogger("SortFactory logger");
     public static Sorter userChoice(int userChoice, int firstElementOfArray) throws InvalidSelectionException{
         logger.log(Level.INFO, "Received userChoice: " + userChoice + " to run switch case statement. Received  first element of random array: " + firstElementOfArray);
         return switch (userChoice) {
