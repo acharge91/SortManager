@@ -9,7 +9,7 @@
                 
 <h2>Description</h2>
 **A number sorting program that offers a selection of sorting algorithms and a randomly generated array of numbers to sort.**
----
+-----
 <h3>Sorting Algorithms Used:</h3>
 
 - Bubble Sort
