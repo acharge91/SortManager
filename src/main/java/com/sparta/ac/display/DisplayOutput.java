@@ -6,7 +6,7 @@ public abstract class DisplayOutput {
 
     public static void welcomeMessage() {
         System.out.println("  ***********************************\n" +
-                "  *ASHTON'S MEGA-SORTER MANAGER 3000*\n" +
+                "  *ASHTON'S MEGA SORT MANAGER 3000*\n" +
                 "  ***********************************\n" +
                 "'For all your household sorting needs'\n" +
                 "       █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n" +
@@ -46,11 +46,12 @@ public abstract class DisplayOutput {
     public static void displayTwoResults(String firstSorter, int[] resultOne, long timeOne, String secondSorter, int[] resultTwo, long timeTwo) {
         System.out.println("Sorting... Gimme a sec...\n" +
                 "\n"+
-                "Right, the results are in.\n" +
-                firstSorter + ":" + Arrays.toString(resultOne) +
+                "The results are in.\n" +
+                "\n" +
+                firstSorter + ": " + Arrays.toString(resultOne) +
                 "\nAnd it did it in " + timeOne + " nanoseconds\n" +
                 "\n" +
-                secondSorter + ":" + Arrays.toString(resultTwo) +
+                secondSorter + ": " + Arrays.toString(resultTwo) +
                 "\nAnd that did it in " + timeTwo + " nanoseconds\n");
 
     }
