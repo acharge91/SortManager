@@ -1,4 +1,4 @@
-# Ashton's Mega Sorter Manager 3000
+# Ashton's Mega Sort Manager 3000
 *For all your household sorting needs*
 
                                         █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
@@ -8,8 +8,12 @@
                                         █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
                 
 <h2>Description</h2>
+
 **A number sorting program that offers a selection of sorting algorithms and a randomly generated array of numbers to sort.**
------
+
+---
+
+
 <h3>Sorting Algorithms Used:</h3>
 
 - Bubble Sort
@@ -22,7 +26,7 @@ This algorithm uses recursion to compare the values of adjacent elements and swa
 
 - Binary Tree Sort
 
-This algorithm uses a binary tree to sort elements. Upon sorting the tree is recursively traversed which returns the elements in chronological order.
+This algorithm uses a binary tree to sort elements. Upon sorting the tree it is recursively traversed returning the elements in chronological order.
 
 ---
 
